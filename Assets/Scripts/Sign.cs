@@ -11,6 +11,7 @@ public class Sign : MonoBehaviour
 {
     public GameObject prefab;
     public RPGTalk rPGalk;
+    public GameObject interact;
     [HideInInspector]
     bool isComplete = false;
     bool isTrigger = true;
@@ -26,6 +27,7 @@ public class Sign : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
+            interact.SetActive(true);
             isTrigger = true;
         }
     }
@@ -33,6 +35,7 @@ public class Sign : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            interact.SetActive(false);
             isTrigger = false;
         }
     }
@@ -48,6 +51,7 @@ public class Sign : MonoBehaviour
         {
             if (isTrigger && !isInstantiated)
             {
+                interact.SetActive(false);
                 Instantiate(prefab);
                 isInstantiated = true;
                 isClicked = true;

@@ -19,6 +19,8 @@ public class GameContrller : MonoBehaviour
     public AudioSource AudioSource;
     public AudioClip AudioClip;
     public Player player;
+    public GameObject walk;
+    public GameObject interact;
     bool iscomplete;
     private void Awake()
     {
@@ -54,6 +56,7 @@ public class GameContrller : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         player.isControled = true;
+        walk.gameObject.SetActive(true);
         image.transform.parent.gameObject.SetActive(false);
         yield return null;
     }

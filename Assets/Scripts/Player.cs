@@ -13,10 +13,17 @@ public class Player : MonoBehaviour
     public bool isControled = true;
     public float speed = 5f;
     public float rotationSpeed = 200f;
+    public GameContrller gameContrller;
+    public GameObject walk;
+    private bool isDisappear;
 
     private Animator animator;
     private void Awake()
     {
+        if(gameContrller == null)
+        {
+            gameContrller = GameObject.Find("Player").GetComponent<GameContrller>();
+        }
         animator = transform.GetComponentInChildren<Animator>();
     }
     void Start()
@@ -35,7 +42,10 @@ public class Player : MonoBehaviour
 
         if (isIdle && Mathf.Abs(move) > 0.1f) // 当人物处于静止状态且按下键盘时
         {
+
             isIdle = false; // 将静止状态设为 false
+            if (!isDisappear)
+                StartCoroutine(disappear());
         }
         if (Input.GetKeyDown(KeyCode.E) && isIdle)
         {
@@ -68,5 +78,11 @@ public class Player : MonoBehaviour
             Vector2 movement = new Vector2(move * speed, rb.velocity.y);
             rb.velocity = movement;
         }
+    }
+    IEnumerator disappear()
+    {
+        yield return new WaitForSeconds(0.5f);
+        walk.gameObject.SetActive(false);
+        isDisappear = true;
     }
 }
