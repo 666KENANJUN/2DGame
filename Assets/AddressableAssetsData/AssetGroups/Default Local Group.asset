@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: Canvas
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 97414a818382ee34d84c314d698192d2
+    m_Address: "\u5DE6\u811A"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2405ad3348f50fc40937e5ca8273968a, type: 2}
   m_SchemaSet:

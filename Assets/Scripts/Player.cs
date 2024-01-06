@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     private bool isDisappear;
 
     private Animator animator;
+    private AudioSource audioSource;
+    
     private void Awake()
     {
         if(gameContrller == null)
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour
             gameContrller = GameObject.Find("Player").GetComponent<GameContrller>();
         }
         animator = transform.GetComponentInChildren<Animator>();
+        audioSource = transform.GetComponent<AudioSource>();
+        audioSource.pitch = 2f;
     }
     void Start()
     {
@@ -42,7 +46,7 @@ public class Player : MonoBehaviour
 
         if (isIdle && Mathf.Abs(move) > 0.1f) // 当人物处于静止状态且按下键盘时
         {
-
+            audioSource.Play();
             isIdle = false; // 将静止状态设为 false
             if (!isDisappear)
                 StartCoroutine(disappear());
@@ -56,6 +60,7 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(move) < 0.1f)
         {
             isIdle = true;
+            audioSource.Pause();
             animator.Play("呼吸");
         }
 
@@ -72,7 +77,8 @@ public class Player : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f); // 向右转向
             }
-            animator.Play("走路"); 
+            animator.Play("走路");
+
 
             // 移动人物
             Vector2 movement = new Vector2(move * speed, rb.velocity.y);
